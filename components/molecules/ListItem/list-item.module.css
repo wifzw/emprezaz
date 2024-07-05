@@ -1,0 +1,21 @@
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: .8rem 1rem;
+  gap: .6rem;
+  cursor: pointer;
+}
+
+.list-item:not(.active):hover {
+  background-color: #EEEEEE;
+}
+
+.list-item .list-item-icon {
+  display: flex;
+  align-items: center;
+}
+
+.active { 
+  color: var(--text) !important;
+  background-color: var(--primary-highlight);
+}

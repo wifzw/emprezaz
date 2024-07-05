@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-header);
+  height: 50px;
+  border: 1px solid var(--border);
+  border-left: none;
+}
+
+.header .info {
+  padding: 0 1.5rem;
+}
+
+.header .action {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+  border-left: 1px solid var(--border);
+  padding: 0 1.5rem;
+}

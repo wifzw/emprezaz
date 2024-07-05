@@ -1,0 +1,18 @@
+:root {
+  --background-header: hsl(0, 0%, 100%);
+  --background:#f3f3fa;
+  --background-footer: hsl(222.86 20% 10%);
+  --border: rgba(0, 0, 0, 0.12);
+  --primary: hsl(264.34 100% 58.43%);
+  --primary-highlight: hsl(264.34 100% 70%);
+  --text: #fff;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root { 
+    --background: hsl(225.86 25% 6.86%);
+    --background-header: hsl(222.86 20% 10%);
+    --background-footer: hsl(222.86 20% 10%);
+    --border: hsl(229.09 14.29% 15.1%);
+  }
+} */
