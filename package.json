@@ -6,13 +6,24 @@
     "dev": "next dev -p 7577",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:console": "docker compose run postgres psql -h localhost -U postgres -d emprezaz",
+    "db:migrate": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:latest",
+    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make",
+    "docker:db:migrate": "docker compose run backend pnpm db:migrate",
+    "docker:db:migrate:undo": "docker compose run backend pnpx knex migrate:down",
+    "rebuild:be": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend"
   },
   "dependencies": {
+    "@prisma/client": "5.16.1",
+    "dotenv": "^16.4.5",
+    "knex": "^3.1.0",
     "next": "14.2.4",
+    "pg": "^8.12.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.2.1"
+    "react-icons": "^5.2.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -22,6 +33,7 @@
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
+    "prisma": "^5.16.1",
     "typescript": "^5"
   }
 }
