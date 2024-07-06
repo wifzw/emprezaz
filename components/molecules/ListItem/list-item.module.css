@@ -8,6 +8,7 @@
 
 .list-item:not(.active):hover {
   background-color: #EEEEEE;
+  border-left: 6px solid var(--primary);
 }
 
 .list-item .list-item-icon {
@@ -15,7 +16,11 @@
   align-items: center;
 }
 
-.active { 
+.list-item.active { 
   color: var(--text) !important;
   background-color: var(--primary-highlight);
+}
+
+.list-item.active:hover {
+  border-left: 6px solid var(--primary);
 }

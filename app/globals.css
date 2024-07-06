@@ -22,6 +22,10 @@ body {
   background: var(--background);
 }
 
+main {
+  height: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;

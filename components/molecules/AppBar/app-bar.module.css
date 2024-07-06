@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--background-header);
-  height: 50px;
+  background-color: var(--background);
+  height: 65px;
   border: 1px solid var(--border);
   border-left: none;
 }
@@ -17,6 +17,13 @@
   align-items: center;
   height: 100%;
   gap: 1rem;
-  border-left: 1px solid var(--border);
   padding: 0 1.5rem;
+}
+
+.avatar {
+  background-image: url('/assets/wifz-photo.jpeg');
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background-size: cover;
 }
