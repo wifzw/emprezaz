@@ -26,4 +26,5 @@ model User {
   updated_at DateTime @updatedAt
 
   @@index([created_at])
+  @@map("users")
 }
