@@ -68,7 +68,7 @@ export default function UserDataTable() {
         </IconButton>
       </div>
     )
-  }
+  }  
 
   return (
     <div className={classes.wrapper}>
