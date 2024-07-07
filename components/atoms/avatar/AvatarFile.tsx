@@ -19,7 +19,7 @@ export default function AvatarFile(props: IAvatarFileProps) {
     if (avatar) {
       setPreviewImage(avatar);
     }
-  }, [avatar, previewImage]);
+  }, [avatar]);
 
   const handleClick = () => {
     if (fileInputRef.current) {

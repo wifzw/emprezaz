@@ -37,6 +37,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
   });
 
   const [file, setFile] = useState<null | File>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleOnClose = (event?: MouseEvent<HTMLButtonElement>) => {
     if (!onClose) return;
@@ -47,6 +48,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
   };
 
   const onSubmit = async (data: ICreateUserPayload) => {
+    setIsLoading(true);
     const avatarFile = new FormData();
 
     if (file) {
@@ -56,8 +58,11 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
     try {
       await createUser(data, avatarFile);
 
+      setIsLoading(false);
+
       handleOnClose();
     } catch (err) {
+      setIsLoading(false);
       console.error('Error creating user');
     }
   };
@@ -170,8 +175,8 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
           <MediumButton text onClick={handleOnClose}>
             Cancelar
           </MediumButton>
-          <MediumButton type="submit" disabled={isFormInvalid}>
-            Adicionar
+          <MediumButton type="submit" disabled={isLoading || isFormInvalid}>
+            {isLoading ? 'Carregando...' : 'Adicionar'}
           </MediumButton>
         </footer>
       </form>

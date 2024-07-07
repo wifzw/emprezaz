@@ -116,6 +116,17 @@ export async function removeUser(data: IUpdateUserPayload) {
     },
   });
 
+  if (data.avatar) {
+    const filename = data.avatar.split('/').pop();
+    const directoryPath = 'public/uploads';
+    const filePath = `${directoryPath}/${filename}`;
+
+    const exists = await fsExtra.pathExists(filePath);
+    if (exists) {
+      await fsExtra.remove(filePath);
+    }
+  }
+
   revalidatePath("/", "layout");
 
   return response;
