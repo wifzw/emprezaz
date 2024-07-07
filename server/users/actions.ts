@@ -42,7 +42,7 @@ async function saveImage(
 export async function createUser(
   data: ICreateUserPayload,
   formDataFile: FormData
-): Promise<IUserResponse | boolean> {
+): Promise<IUserResponse | boolean | { error: string }> {
   const file = formDataFile.get('avatar') as File;
 
   const payload: ICreateUserPayload = {
@@ -53,6 +53,19 @@ export async function createUser(
     avatar: null,
     email: data.email,
     status: data.status,
+  }
+
+  if (data.email) {
+    try {
+      const isEmailExist = await db.user.findFirst({ where: { email: data.email } })
+
+      if (isEmailExist) {
+        return { error: 'Email already exists' };
+      }
+
+    } catch (err) {
+      throw new Error('Could not find');
+    }
   }
 
   if (file) {
