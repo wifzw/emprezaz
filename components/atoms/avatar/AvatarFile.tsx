@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import { MdAccountCircle } from 'react-icons/md';
+
+import Avatar from '@mui/material/Avatar';
 
 import classes from './avatar-file.module.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
@@ -47,20 +48,15 @@ export default function AvatarFile(props: IAvatarFileProps) {
 
   return (
     <>
-      <div className={classes.avatar} role="button" onClick={handleClick}>
-        {previewImage ? (
-          <Image
-            width={120}
-            height={120}
-            alt="avatar"
-            src={previewImage}
-            quality={100}
-            priority
-          />
-        ) : (
-          <MdAccountCircle size={140} />
-        )}
-      </div>
+      <Avatar
+        src={previewImage ?? undefined}
+        alt="avatar"
+        sizes="140px"
+        className={classes.avatar}
+        onClick={handleClick}
+      >
+        {!previewImage && <MdAccountCircle size={140} />}
+      </Avatar>
 
       <input
         type="file"

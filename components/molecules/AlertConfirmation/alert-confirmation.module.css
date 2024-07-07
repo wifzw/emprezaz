@@ -1,0 +1,30 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(5, 5, 6, 0.5);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper-modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  flex: 1;
+  width: 100%;
+  max-width: 450px;
+}
+
+.wrapper-modal .actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  gap: .75rem;
+}

@@ -1,8 +1,7 @@
 .avatar {
-  overflow: hidden;
-  border-radius: 9999px;
-  background-size: cover;
   cursor: pointer;
+  width: 140px;
+  height: 140px;
 }
 
 .file {

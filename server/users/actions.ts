@@ -5,28 +5,33 @@ import { revalidatePath } from "next/cache";
 import db from "../db";
 import { ICreateUserPayload, IUpdateUserPayload, IUserResponse } from "./types";
 
-import fs from 'fs/promises'
-import fsNode from 'node:fs'
+import * as fsExtra from 'fs-extra';
 
-async function saveImage(image: File): Promise<void | string> {
+async function saveImage(
+  image: File, isUpdateImage: { filename: string } | null = null
+): Promise<void | string> {
   const uuidGenerate = uuidv4();
   const extension = image.name.split('.').pop();
-  const filename = `${uuidGenerate}.${extension}`;
+  const filename = isUpdateImage ? isUpdateImage.filename : `${uuidGenerate}.${extension}`;
   const directoryPath = 'public/uploads';
 
-  try {
-    await fs.mkdir(directoryPath, { recursive: true });
-  } catch (err) {
-    console.error('Erro ao criar o diretório:', err);
+  await fsExtra.ensureDir(directoryPath);
+
+  const filePath = `${directoryPath}/${filename}`;
+  const exists = await fsExtra.pathExists(filePath);
+  if (exists) {
+    console.log(`Arquivo ${filename} já existe. Substituindo...`);
+    await fsExtra.remove(filePath);
   }
 
-  const stream = fsNode.createWriteStream(`${directoryPath}/${filename}`);
+  const stream = fsExtra.createWriteStream(filePath);
   const bufferedImage = await image.arrayBuffer();
 
-  stream.write(Buffer.from(bufferedImage), (error) => {
+  stream.write(Buffer.from(bufferedImage), (error: unknown) => {
     if (error) {
       throw new Error('Falha ao salvar a imagem!');
     }
+    stream.end();
   });
 
   return filename;
@@ -75,7 +80,13 @@ export async function updateUser(
 
   if (file) {
     try {
-      const filename = await saveImage(file)
+      let filename = null
+
+      if (data.avatar) {
+        filename = data.avatar.split('/').pop();
+      }
+
+      filename = await saveImage(file, filename ? { filename } : undefined);
       payload.avatar = `${process.env.NEXT_PUBLIC_URL}/uploads/${filename}`
     } catch (e) {
       return false;
@@ -96,6 +107,14 @@ export async function updateUser(
   return response;
 }
 
-export async function removeUser() {
+export async function removeUser(data: IUpdateUserPayload) {
+  const response = await db.user.delete({
+    where: {
+      id: data.id,
+    },
+  });
+
   revalidatePath("/", "layout");
+
+  return response;
 }
