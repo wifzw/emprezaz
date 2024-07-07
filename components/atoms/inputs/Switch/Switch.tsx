@@ -4,21 +4,20 @@ import classes from './switch.module.css';
 
 export interface ISwitchProps {
   value: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Switch(props: ISwitchProps) {
-  const { value, register } = props;
+  const { value, onChange } = props;
 
   return (
     <label className={classes.switch}>
       <input
         type="checkbox"
-        defaultChecked={value}
+        checked={value}
         className={classes.checkbox}
         title="status"
-        {...register}
+        onChange={onChange}
       />
       <span className={`${classes.slider} ${classes.round}`}></span>
     </label>

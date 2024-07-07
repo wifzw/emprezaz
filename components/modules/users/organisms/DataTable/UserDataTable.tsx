@@ -1,17 +1,16 @@
 import DataTable from '@/components/molecules/DataTable/DataTable';
 
 import { IHeader } from '@/components/molecules/DataTable/types';
-import { ReactNode } from 'react';
 import { MdAccountCircle } from 'react-icons/md';
 
 import Avatar from '@mui/material/Avatar';
 
 import classes from './user-data-table.module.css';
-import Switch from '@/components/atoms/inputs/Switch/Switch';
 import { IUserResponse } from '@/server/users/types';
 import formatDate from '@/utils/functions/formatDate';
 import formatPhone from '@/utils/functions/formatPhone';
 import UserDataTableAction from './UserDataTableAction';
+import UserDataTableSwitch from './UserDataTableSwitch';
 
 export interface IUserDataTableProps {
   users: IUserResponse[];
@@ -26,14 +25,6 @@ export default function UserDataTable(props: IUserDataTableProps) {
     { name: 'Status', value: 'status', align: 'start' },
     { name: '', value: 'action', align: 'end', width: '100px' },
   ];
-
-  const getSlotStatus = (item: IUserResponse): ReactNode => {
-    return (
-      <>
-        <Switch value={item.status} />
-      </>
-    );
-  };
 
   return (
     <div className={classes.wrapper}>
@@ -58,7 +49,9 @@ export default function UserDataTable(props: IUserDataTableProps) {
               </div>
             </td>
             <td>{formatPhone(user.phone)}</td>
-            <td>{getSlotStatus(user)}</td>
+            <td>
+              <UserDataTableSwitch user={user} />
+            </td>
             <td>
               <UserDataTableAction user={user} />
             </td>

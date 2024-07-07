@@ -16,7 +16,14 @@ export default function NoData(props: INoDataProps) {
 
   return (
     <div className={classes.wrapper}>
-      <Image src={NoDataImage} width={450} height={450} alt="no-found" />
+      <Image
+        src={NoDataImage}
+        width={450}
+        height={450}
+        alt="no-found"
+        priority
+        quality={100}
+      />
       <h2 className={montSerrat.className}>{title}</h2>
       {subtitle && <p className={classes.subtitle}>{subtitle}</p>}
       {children}

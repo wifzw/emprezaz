@@ -1,11 +1,10 @@
 "use server";
 
+import * as fsExtra from 'fs-extra';
 import { v4 as uuidv4 } from 'uuid';
 import { revalidatePath } from "next/cache";
 import db from "../db";
 import { ICreateUserPayload, IUpdateUserPayload, IUserResponse } from "./types";
-
-import * as fsExtra from 'fs-extra';
 
 async function saveImage(
   image: File, isUpdateImage: { filename: string } | null = null
@@ -65,11 +64,15 @@ export async function createUser(
     }
   }
 
-  const response = await db.user.create({ data: payload });
+  try {
+    const response = await db.user.create({ data: payload });
 
-  revalidatePath("/", "layout");
+    revalidatePath("/", "layout");
 
-  return response;
+    return response;
+  } catch (e) {
+    throw new Error('Error creating user')
+  }
 }
 
 export async function updateUser(
@@ -95,26 +98,34 @@ export async function updateUser(
     }
   }
 
-  const response = await db.user.update({
-    where: {
-      id: data.id,
-    },
-    data: {
-      ...payload,
-    }
-  });
+  try {
+    const response = await db.user.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        ...payload,
+      }
+    });
 
-  revalidatePath("/", "layout");
+    revalidatePath("/", "layout");
 
-  return response;
+    return response;
+  } catch (e) {
+    throw new Error('Error updating user')
+  }
 }
 
 export async function removeUser(data: IUpdateUserPayload) {
-  const response = await db.user.delete({
-    where: {
-      id: data.id,
-    },
-  });
+  try {
+    await db.user.delete({
+      where: {
+        id: data.id,
+      },
+    });
+  } catch (e) {
+    throw new Error('Error removing user')
+  }
 
   if (data.avatar) {
     const filename = data.avatar.split('/').pop();
@@ -128,6 +139,21 @@ export async function removeUser(data: IUpdateUserPayload) {
   }
 
   revalidatePath("/", "layout");
+}
 
-  return response;
+export async function updateStatusUser(data: { id: string, status: boolean }) {
+  try {
+    await db.user.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        status: data.status,
+      }
+    });
+
+    revalidatePath("/", "layout");
+  } catch (err) {
+    throw new Error('Error updating status')
+  }
 }
