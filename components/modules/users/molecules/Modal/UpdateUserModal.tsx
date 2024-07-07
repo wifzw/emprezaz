@@ -2,7 +2,7 @@
 
 import IconButton from '@/components/atoms/buttons/IconButton/IconButton';
 import { MdOutlineClose } from 'react-icons/md';
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import MediumButton from '@/components/atoms/buttons/Medium/MediumButton';
 import Switch from '@/components/atoms/inputs/Switch/Switch';
 
@@ -40,6 +40,10 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
     }>
   >([]);
 
+  useEffect(() => {
+    setStatus(user.status);
+  }, [user.status]);
+
   const handleOnClose = (event?: MouseEvent<HTMLButtonElement>) => {
     if (!onClose) return;
 
@@ -48,10 +52,9 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
     onClose(event);
   };
 
-  const handleUpdateStatus = (event?: ChangeEvent<HTMLInputElement>) => {
-    event?.preventDefault();
-
-    setStatus(!status);
+  const handleUpdateStatus = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setStatus(newValue);
   };
 
   const getErrorsEmail = () => {
@@ -200,6 +203,8 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
     if (file) {
       avatarFile.append('avatar', file);
     }
+
+    data.status = status;
 
     try {
       const response = await updateUser(data, avatarFile);

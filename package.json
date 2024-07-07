@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "challenge-emprezaz",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,7 @@
     "lint": "next lint",
     "db:console": "docker compose run postgres psql -h localhost -U postgres -d emprezaz",
     "db:migrate": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:latest",
-    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make",
-    "docker:db:migrate": "docker compose run backend pnpm db:migrate",
-    "docker:db:migrate:undo": "docker compose run backend pnpx knex migrate:down",
-    "rebuild:be": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend"
+    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
