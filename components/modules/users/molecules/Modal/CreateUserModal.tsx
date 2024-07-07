@@ -53,10 +53,9 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
     onClose(event);
   };
 
-  const handleUpdateStatus = (event?: ChangeEvent<HTMLInputElement>) => {
-    event?.preventDefault();
-
-    setStatus(!status);
+  const handleUpdateStatus = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setStatus(newValue);
   };
 
   const getErrorsEmail = () => {
@@ -205,6 +204,8 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
     if (file) {
       avatarFile.append('avatar', file);
     }
+
+    data.status = status;
 
     try {
       const response = await createUser(data, avatarFile);
