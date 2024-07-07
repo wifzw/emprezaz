@@ -82,6 +82,8 @@ export async function createUser(
   try {
     const response = await db.user.create({ data: payload });
 
+    await db.$disconnect();
+
     revalidatePath("/", "layout");
 
     return response;
@@ -141,6 +143,8 @@ export async function updateUser(
       }
     });
 
+    await db.$disconnect();
+
     revalidatePath("/", "layout");
 
     return response;
@@ -156,6 +160,8 @@ export async function removeUser(data: IUpdateUserPayload) {
         id: data.id,
       },
     });
+
+    await db.$disconnect();
   } catch (e) {
     throw new Error('Error removing user')
   }
@@ -184,6 +190,8 @@ export async function updateStatusUser(data: { id: string, status: boolean }) {
         status: data.status,
       }
     });
+
+    await db.$disconnect();
 
     revalidatePath("/", "layout");
   } catch (err) {

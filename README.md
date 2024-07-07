@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`challenge-emprezaz`]
 
 ## Getting Started
 
-First, run the development server:
+Requirements
+
+- Node v20 (v20.11.1)
+
+Create database (docker)
+
+```bash
+docker compose up -d
+```
+
+Install dependencies
+
+```bash
+npm run install
+# or
+yarn install
+# or
+pnpm install
+```
+
+run the development server:
 
 ```bash
 npm run dev
@@ -10,11 +30,9 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:7577](http://localhost:7577) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
