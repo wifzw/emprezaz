@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  margin-bottom: 6rem;
+  gap:1rem;
+}
+
+.wrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.wrapper .subtitle {
+  padding-bottom: .5rem;
+}

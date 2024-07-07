@@ -31,6 +31,7 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
   });
 
   const [file, setFile] = useState<null | File>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleOnClose = (event?: MouseEvent<HTMLButtonElement>) => {
     if (!onClose) return;
@@ -41,6 +42,8 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
   };
 
   const onSubmit = async (data: IUpdateUserPayload) => {
+    setIsLoading(true);
+
     const avatarFile = new FormData();
 
     if (file) {
@@ -50,8 +53,11 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
     try {
       await updateUser(data, avatarFile);
 
+      setIsLoading(false);
+
       handleOnClose();
     } catch (err) {
+      setIsLoading(false);
       console.error('Error creating user');
     }
   };
@@ -167,8 +173,8 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
           <MediumButton text onClick={handleOnClose}>
             Cancelar
           </MediumButton>
-          <MediumButton type="submit" disabled={isFormInvalid}>
-            Salvar
+          <MediumButton type="submit" disabled={isLoading || isFormInvalid}>
+            {isLoading ? 'Carregando...' : 'Salvar'}
           </MediumButton>
         </footer>
       </form>
