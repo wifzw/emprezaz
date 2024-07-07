@@ -1,7 +1,7 @@
-import { MdSupervisorAccount } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
+import { MdSupervisorAccount } from 'react-icons/md';
+import { RxDashboard } from 'react-icons/rx';
 
-import { IRoute } from "./core/types";
+import { IRoute } from './types';
 
 const ROUTES: IRoute[] = [
   {
@@ -14,6 +14,6 @@ const ROUTES: IRoute[] = [
     icon: <MdSupervisorAccount size={20} />,
     path: '/users',
   },
-]
+];
 
 export default ROUTES;

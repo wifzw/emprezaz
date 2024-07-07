@@ -161,7 +161,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
           <div className={`${classes.input} ${classes.status}`}>
             <Switch
               value={watch('status')}
-              register={{ ...register('status', { required: true }) }}
+              register={{ ...register('status') }}
             />
           </div>
         </div>

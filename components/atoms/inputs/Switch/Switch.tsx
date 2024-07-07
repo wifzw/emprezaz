@@ -5,7 +5,7 @@ import classes from './switch.module.css';
 export interface ISwitchProps {
   value: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: any;
+  register?: any;
 }
 
 export default function Switch(props: ISwitchProps) {

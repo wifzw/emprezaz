@@ -3,7 +3,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { revalidatePath } from "next/cache";
 import db from "../db";
-import { ICreateUserPayload, IUserResponse } from "./types";
+import { ICreateUserPayload, IUpdateUserPayload, IUserResponse } from "./types";
 
 import fs from 'fs/promises'
 import fsNode from 'node:fs'
@@ -65,8 +65,35 @@ export async function createUser(
   return response;
 }
 
-export async function updateUser() {
+export async function updateUser(
+  data: IUpdateUserPayload,
+  formDataFile: FormData
+): Promise<IUserResponse | boolean> {
+  const file = formDataFile.get('avatar') as File;
+
+  const payload: IUpdateUserPayload = data
+
+  if (file) {
+    try {
+      const filename = await saveImage(file)
+      payload.avatar = `${process.env.NEXT_PUBLIC_URL}/uploads/${filename}`
+    } catch (e) {
+      return false;
+    }
+  }
+
+  const response = await db.user.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      ...payload,
+    }
+  });
+
   revalidatePath("/", "layout");
+
+  return response;
 }
 
 export async function removeUser() {
