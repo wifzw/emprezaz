@@ -1,25 +1,32 @@
 'use client';
 
-import MediumButton from '@/components/atoms/buttons/Medium/MediumButton'
-import Filter from './Filter/Filter'
+import MediumButton from '@/components/atoms/buttons/Medium/MediumButton';
+import Filter from './Filter/Filter';
 
-import classes from './toolbar.module.css'
-import CreateUserModal from '../../molecules/Modal/CreateUserModal'
-import { MouseEvent, useState } from 'react'
+import classes from './toolbar.module.css';
+import CreateUserModal from '../../molecules/Modal/CreateUserModal';
+import { MouseEvent, useState } from 'react';
 
-export default function Toolbar() {
+export interface IToolbarProps {
+  search: string;
+  onChangeSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function Toolbar(props: IToolbarProps) {
+  const { search, onChangeSearch } = props;
+
   const [isCreateUserModal, setIsCreateUserModal] = useState<boolean>(false);
 
-  const handleUpdateUserModal = (event?: MouseEvent<HTMLButtonElement>) => { 
+  const handleUpdateUserModal = (event?: MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
 
-    setIsCreateUserModal(!isCreateUserModal)
-  }
+    setIsCreateUserModal(!isCreateUserModal);
+  };
 
   return (
     <header className={classes.header}>
-      <Filter />
-      
+      <Filter search={search} onChangeSearch={onChangeSearch} />
+
       <div className={classes.action}>
         <MediumButton onClick={handleUpdateUserModal}>
           Adicionar Usuário
@@ -28,5 +35,5 @@ export default function Toolbar() {
 
       {isCreateUserModal && <CreateUserModal onClose={handleUpdateUserModal} />}
     </header>
-  )
+  );
 }
