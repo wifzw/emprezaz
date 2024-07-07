@@ -1,10 +1,6 @@
-export default function formatPhone(phoneNumber: string): string {
-  const cleaned = phoneNumber.replace(/\D/g, '');
-  const match = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/);
-
-  if (match) {
-    return `(${match[1]}) ${match[2]}-${match[3]}`;
-  }
-
-  throw new Error('Invalid phone number');
+export default function formatPhone(phone: string): string {
+  phone = phone.replace(/\D/g, "");
+  phone = phone.replace(/^(\d{2})(\d)/g, "($1) $2");
+  phone = phone.replace(/(\d)(\d{4})$/, "$1-$2");
+  return phone;
 }

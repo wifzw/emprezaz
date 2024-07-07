@@ -63,6 +63,8 @@ export default function AvatarFile(props: IAvatarFileProps) {
         ref={fileInputRef}
         name="avatar"
         className={classes.file}
+        accept="image/png, image/jpeg"
+        hidden
         onChange={handleUpdateAvatar}
       />
     </>

@@ -20,8 +20,6 @@ export interface ICreateUserModalProps {
 export default function CreateUserModal(props: ICreateUserModalProps) {
   const { onClose } = props;
 
-  const [status, setStatus] = useState<boolean>(true);
-
   const {
     register,
     handleSubmit,
@@ -39,6 +37,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
 
   const [file, setFile] = useState<null | File>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [status, setStatus] = useState<boolean>(true);
   const [customErrors, setErrors] = useState<
     Array<{
       name: string;
@@ -288,6 +287,8 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
               id="cpf"
               type="text"
               placeholder="CPF"
+              maxLength="14"
+              isCpfMask
               register={{
                 ...register('cpf', { required: true }),
               }}
@@ -300,6 +301,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
               id="phone"
               type="tel"
               placeholder="Celular"
+              maxLength="15"
               register={{
                 ...register('phone', { required: true }),
               }}
@@ -312,6 +314,7 @@ export default function CreateUserModal(props: ICreateUserModalProps) {
               id="birthDate"
               type="date"
               placeholder="Data de Nascimento"
+              maxLength="10"
               register={{
                 ...register('birth_date', { required: true }),
               }}

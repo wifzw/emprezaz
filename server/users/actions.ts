@@ -45,10 +45,12 @@ export async function createUser(
 ): Promise<IUserResponse | boolean | { error: string }> {
   const file = formDataFile.get('avatar') as File;
 
+  const phone = data.phone.replace(/\D/g, '')
+
   const payload: ICreateUserPayload = {
     name: data.name,
     cpf: data.cpf,
-    phone: data.phone,
+    phone: phone,
     birth_date: data.birth_date,
     avatar: null,
     email: data.email,
@@ -91,10 +93,28 @@ export async function createUser(
 export async function updateUser(
   data: IUpdateUserPayload,
   formDataFile: FormData
-): Promise<IUserResponse | boolean> {
+): Promise<IUserResponse | boolean | { error: string }> {
   const file = formDataFile.get('avatar') as File;
 
   const payload: IUpdateUserPayload = data
+
+  if (payload.phone) {
+    const phone = payload.phone.replace(/\D/g, '')
+    payload.phone = phone;
+  }
+
+  if (data.email) {
+    try {
+      const isEmailExist = await db.user.findFirst({ where: { email: data.email } })
+
+      if (isEmailExist && isEmailExist.id !== data.id) {
+        return { error: 'Email already exists' };
+      }
+
+    } catch (err) {
+      throw new Error('Could not find');
+    }
+  }
 
   if (file) {
     try {
