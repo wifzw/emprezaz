@@ -19,7 +19,7 @@ model User {
   cpf        String
   phone      String
   birth_date String
-  avatar     String
+  avatar     String?
   email      String
   status     Boolean
   created_at DateTime @default(now())

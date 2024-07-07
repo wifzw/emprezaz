@@ -1,0 +1,10 @@
+.avatar {
+  overflow: hidden;
+  border-radius: 9999px;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.file {
+  display: none;
+}

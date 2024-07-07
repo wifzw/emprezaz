@@ -6,6 +6,7 @@
   --primary: hsl(264.34 100% 58.43%);
   --primary-highlight: hsl(264.34 100% 70%);
   --text: #fff;
+  --text-error: hsl(0, 92%, 46%);
 }
 
 /* @media (prefers-color-scheme: dark) {
