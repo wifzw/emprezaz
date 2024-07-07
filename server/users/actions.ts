@@ -12,16 +12,18 @@ async function saveImage(
 ): Promise<void | string> {
   const uuidGenerate = uuidv4();
   const extension = image.name.split('.').pop();
-  const filename = isUpdateImage ? isUpdateImage.filename : `${uuidGenerate}.${extension}`;
+  let filename = isUpdateImage ? isUpdateImage.filename : `${uuidGenerate}.${extension}`;
   const directoryPath = 'public/uploads';
 
   await fsExtra.ensureDir(directoryPath);
 
-  const filePath = `${directoryPath}/${filename}`;
+  let filePath = `${directoryPath}/${filename}`;
   const exists = await fsExtra.pathExists(filePath);
   if (exists) {
-    console.log(`Arquivo ${filename} já existe. Substituindo...`);
     await fsExtra.remove(filePath);
+
+    filename = `${uuidGenerate}.${extension}`
+    filePath = `${directoryPath}/${filename}`;
   }
 
   const stream = fsExtra.createWriteStream(filePath);

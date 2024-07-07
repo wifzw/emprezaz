@@ -1,7 +1,7 @@
 .avatar {
   cursor: pointer;
-  width: 140px;
-  height: 140px;
+  width: 140px !important;
+  height: 140px !important;
 }
 
 .file {

@@ -10,7 +10,7 @@ export interface IMediumButtonProps {
 }
 
 export default function MediumButton(props: IMediumButtonProps) {
-  const { children, text, type, disabled, onClick } = props;
+  const { children, text, type = 'button', disabled, onClick } = props;
 
   const getClass = (): string => {
     if (text) return `${classes.button} ${classes.text}`;
