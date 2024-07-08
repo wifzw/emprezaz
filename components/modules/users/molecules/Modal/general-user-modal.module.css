@@ -69,3 +69,19 @@
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
+.wrapper-avatar-prod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.wrapper-avatar-prod .avatar {
+  width: 140px !important;
+  height: 140px !important;
+}
+
+.wrapper-avatar-prod p {
+  margin-top: 1rem;
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import IconButton from '@/components/atoms/buttons/IconButton/IconButton';
-import { MdOutlineClose } from 'react-icons/md';
+import { MdAccountCircle, MdOutlineClose } from 'react-icons/md';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import MediumButton from '@/components/atoms/buttons/Medium/MediumButton';
 import Switch from '@/components/atoms/inputs/Switch/Switch';
@@ -12,6 +12,7 @@ import { updateUser } from '@/server/users/actions';
 import { useForm } from 'react-hook-form';
 import { IUpdateUserPayload, IUserResponse } from '@/server/users/types';
 import AvatarFile from '@/components/atoms/avatar/AvatarFile';
+import { Avatar } from '@mui/material';
 
 export interface IUpdateUserModalProps {
   user: IUserResponse;
@@ -249,10 +250,22 @@ export default function UpdateUserModal(props: IUpdateUserModalProps) {
 
         <div className={classes.content}>
           <div className={classes['wrapper-avatar']}>
-            <AvatarFile
-              avatar={watch('avatar') as string | null}
-              onChangeFile={(file) => setFile(file)}
-            />
+            {process.env.NODE_ENV === 'production' && (
+              <div className={classes['wrapper-avatar-prod']}>
+                <Avatar alt="avatar" sizes="140px" className={classes.avatar}>
+                  <MdAccountCircle size={140} />
+                </Avatar>
+
+                <p>Obs: A imagem só pode ser alterada em desenvolvimento</p>
+              </div>
+            )}
+
+            {process.env.NODE_ENV === 'development' && (
+              <AvatarFile
+                avatar={watch('avatar') as string | null}
+                onChangeFile={(file) => setFile(file)}
+              />
+            )}
           </div>
 
           <div className={classes.input}>
