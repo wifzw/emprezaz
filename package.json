@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 7577",
+    "dev": "prisma generate && yarn db:migrate && next dev -p 7577",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db:console": "docker compose run postgres psql -h localhost -U postgres -d emprezaz",
     "db:migrate": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:latest",
-    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make"
+    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make",
+    "vercel-build": "prisma generate && yarn db:migrate && next build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

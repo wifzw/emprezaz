@@ -5,6 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`challenge-e
 Requirements
 
 - Node v20 (v20.11.1)
+- Docker
 
 Create database (docker)
 
